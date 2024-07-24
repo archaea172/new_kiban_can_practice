@@ -52,7 +52,8 @@ FDCAN_FilterTypeDef sFilterConfig;
 uint8_t TxData[8] = {};
 uint8_t RxData[8] = {};
 uint32_t TxMailbox;
-int16_t count=0;
+
+int16_t count = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,8 +78,8 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		}
 
 		if (RxHeader.Identifier == 0x300) {
-			printf("a\r\n");
 			count = (int16_t)((RxData[0] << 8) | RxData[1]);
+
 		}
 
 
@@ -179,8 +180,7 @@ int main(void)
   while (1)
   {
 	  printf("encoder:%d\r\n", count);
-	  HAL_Delay(1);
-    /* USER CODE END WHILE */
+	/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
