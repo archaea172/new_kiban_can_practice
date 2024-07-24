@@ -69,7 +69,9 @@ static void MX_FDCAN1_Init(void);
 /* USER CODE BEGIN 0 */
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
+	printf("a\r\n");
 	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
+		printf("a\r\n");
 
 	        /* Retrieve Rx messages from RX FIFO0 */
 		if (HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {
