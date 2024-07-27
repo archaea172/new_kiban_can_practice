@@ -103,7 +103,7 @@ void FDCAN_RxSettings(void){
 		Error_Handler();
 	}
 
-	if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, FDCAN_REJECT, FDCAN_FILTER_REJECT, FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE)){
+	if (HAL_FDCAN_ConfigGlobalFilter(&hfdcan1, FDCAN_REJECT, FDCAN_FILTER_REJECT, FDCAN_FILTER_REMOTE, FDCAN_FILTER_REMOTE) != HAL_OK){
 		printf("fdcan_configglobalfilter is error\r\n");
 		Error_Handler();
 	}
@@ -182,6 +182,7 @@ int main(void)
   while (1)
   {
 	  printf("encoder:%d\r\n", count);
+	  HAL_Delay(10);
 	/* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
