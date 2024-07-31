@@ -69,9 +69,7 @@ static void MX_FDCAN1_Init(void);
 /* USER CODE BEGIN 0 */
 
 void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
-	printf("a\r\n");
 	if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != RESET) {
-		printf("a\r\n");
 
 	        /* Retrieve Rx messages from RX FIFO0 */
 		if (HAL_FDCAN_GetRxMessage(&hfdcan1, FDCAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {
@@ -96,7 +94,7 @@ void FDCAN_RxSettings(void){
 	FDCAN_Filter_settings.FilterType = FDCAN_FILTER_RANGE;
 	FDCAN_Filter_settings.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;
 	FDCAN_Filter_settings.FilterID1 = 0x200;
-	FDCAN_Filter_settings.FilterID1 = 0x310;
+	FDCAN_Filter_settings.FilterID2 = 0x310;
 
 	if (HAL_FDCAN_ConfigFilter(&hfdcan1, &FDCAN_Filter_settings) != HAL_OK){
 		printf("fdcan_configfilter is error\r\n");
@@ -115,13 +113,13 @@ void FDCAN_RxSettings(void){
 }
 
 void FDCAN_TxSettings(void) {
-	  TxHeader.Identifier = 0x000;
+	  TxHeader.Identifier = 0x300;
 	  TxHeader.IdType = FDCAN_STANDARD_ID;
 	  TxHeader.TxFrameType = FDCAN_DATA_FRAME;
 	  TxHeader.DataLength = FDCAN_DLC_BYTES_8;
 	  TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
-	  TxHeader.BitRateSwitch = FDCAN_BRS_OFF;
-	  TxHeader.FDFormat = FDCAN_CLASSIC_CAN;
+	  TxHeader.BitRateSwitch = FDCAN_BRS_ON;
+	  TxHeader.FDFormat = FDCAN_FD_CAN;
 	  TxHeader.TxEventFifoControl = FDCAN_NO_TX_EVENTS;
 	  TxHeader.MessageMarker = 0;
 	  if (HAL_FDCAN_Start(&hfdcan1) != HAL_OK) {
@@ -182,8 +180,8 @@ int main(void)
   while (1)
   {
 	  printf("encoder:%d\r\n", count);
-	  HAL_Delay(10);
-	/* USER CODE END WHILE */
+	  HAL_Delay(1);
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
